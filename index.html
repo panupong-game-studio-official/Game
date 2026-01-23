@@ -1,14 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>My Web Game</title>
+  <title>Monkey Garden Run</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #87ceeb;
+      touch-action: none;
+      font-family: sans-serif;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
 </head>
-<body style="margin:0; background:black; color:white; text-align:center;">
-  <h1>🎮 เกมแรกของฉัน</h1>
-  <button onclick="alert('เริ่มเกมแล้ว!')"
-    style="font-size:20px;">START</button>
+<body>
+
+<canvas id="game"></canvas>
+
+<script>
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+// เลน (ซ้าย กลาง ขวา)
+const lanes = [-1, 0, 1];
+let currentLane = 0;
+
+const monkey = {
+  x: 0,
+  y: canvas.height - 150,
+  size: 40
+};
+
+// แตะจอ = เปลี่ยนเลน
+canvas.addEventListener("touchstart", (e) => {
+  const x = e.touches[0].clientX;
+  if (x < canvas.width / 2) {
+    currentLane = Math.max(-1, currentLane - 1);
+  } else {
+    currentLane = Math.min(1, currentLane + 1);
+  }
+});
+
+function gameLoop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // พื้น
+  ctx.fillStyle = "#228B22";
+  ctx.fillRect(0, canvas.height - 100, canvas.width, 100);
+
+  // ตำแหน่งเลน
+  monkey.x = canvas.width / 2 + currentLane * 100;
+
+  // ลิง 🐒 (วงกลมแทนก่อน)
+  ctx.fillStyle = "brown";
+  ctx.beginPath();
+  ctx.arc(monkey.x, monkey.y, monkey.size, 0, Math.PI * 2);
+  ctx.fill();
+
+  requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+</script>
+
 </body>
 </html>
