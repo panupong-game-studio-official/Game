@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <title>Human World Simulation</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>AI World Simulator - Phase 1</title>
+    <style>
+        body { background: #1a1a1a; color: #fff; font-family: sans-serif; }
+        #world-log { width: 80%; height: 300px; overflow-y: scroll; border: 1px solid #444; padding: 10px; margin: 20px auto; background: #000; }
+        .status-panel { display: flex; justify-content: center; gap: 20px; }
+        .npc-card { border: 1px solid #00ff00; padding: 15px; border-radius: 8px; width: 200px; }
+        h1 { text-align: center; color: #00ff00; }
+    </style>
 </head>
 <body>
+    <h1>🌍 Virtual World Simulator</h1>
+    <div class="status-panel" id="status-panel"></div>
+    <div id="world-log">--- เริ่มการจำลองโลก ---<br></div>
 
-<h1>🌍 Human World Simulation (PHASE 1)</h1>
-<p>God Mode: Observe Only</p>
-
-<canvas id="gameCanvas" width="800" height="500"></canvas>
-
-<div id="log"></div>
-
-<script src="world.js"></script>
-<script src="npc.js"></script>
-<script src="ai.js"></script>
-<script src="main.js"></script>
+    <script src="world.js"></script>
 </body>
 </html>
