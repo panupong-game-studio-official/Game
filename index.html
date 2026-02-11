@@ -1,17 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Human World Simulation</title>
-<link rel="stylesheet" href="style.css">
+<title>AI World</title>
+<style>
+canvas{background:#111;display:block;margin:auto}
+</style>
 </head>
 <body>
+<canvas id="game" width="600" height="600"></canvas>
 
-<canvas id="game" width="900" height="600"></canvas>
+<script>
+const c=document.getElementById("game");
+const ctx=c.getContext("2d");
 
-<script src="world.js"></script>
-<script src="human.js"></script>
-<script src="brain.js"></script>
-<script src="main.js"></script>
+let agents=[];
+
+for(let i=0;i<20;i++){
+ agents.push({
+  x:Math.random()*600,
+  y:Math.random()*600,
+  hunger:100
+ });
+}
+
+function update(){
+ ctx.clearRect(0,0,600,600);
+
+ for(let a of agents){
+  a.x+=(Math.random()-0.5)*2;
+  a.y+=(Math.random()-0.5)*2;
+  a.hunger-=0.1;
+
+  ctx.fillStyle="lime";
+  ctx.fillRect(a.x,a.y,5,5);
+
+  if(a.hunger<0){
+   a.x=Math.random()*600;
+   a.y=Math.random()*600;
+   a.hunger=100;
+  }
+ }
+
+ requestAnimationFrame(update);
+}
+
+update();
+</script>
 </body>
 </html>
